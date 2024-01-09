@@ -4,23 +4,23 @@
 }
 @font-face {
     font-family:popinlight;
-    src: url("/s/sfsites/c/resource/font/font/Poppins-Light.woff") format("TrueType");
-    src: url("/s/sfsites/c/resource/font/font/Poppins-Light.woff2") format("TrueType");
+    src: url("/jobs/sfsites/c/resource/font/font/Poppins-Light.woff") format('woff');
+    src: url("/jobs/sfsites/c/resource/font/font/Poppins-Light.woff2") format('woff2');
   }
   @font-face {
     font-family:popinmedium;
-    src: url("/s/sfsites/c/resource/font/font/Poppins-Medium.woff") format("TrueType");
-    src: url("/s/sfsites/c/resource/font/font/Poppins-Medium.woff2") format("TrueType");
+    src: url("/jobs/sfsites/c/resource/font/font/Poppins-Medium.woff") format('woff');
+    src: url("/jobs/sfsites/c/resource/font/font/Poppins-Medium.woff2") format('woff2');
   }
   @font-face {
     font-family:popinsami;
-    src: url("/s/sfsites/c/resource/font/font/Poppins-SemiBold.woff") format("TrueType");
-    src: url("/s/sfsites/c/resource/font/font/Poppins-SemiBold.woff2") format("TrueType");
+    src: url("/jobs/sfsites/c/resource/font/font/Poppins-SemiBold.woff") format('woff');
+    src: url("/jobs/sfsites/c/resource/font/font/Poppins-SemiBold.woff2") format('woff2');
   }
   @font-face {
     font-family:popinregular;
-    src: url("/s/sfsites/c/resource/font/font/Poppins-Regular.woff") format("TrueType");
-    src: url("/s/sfsites/c/resource/font/font/Poppins-Regular.woff2") format("TrueType");
+    src: url('/jobs/sfsites/c/resource/font/font/Poppins-Regular.woff') format('woff');
+    src: url('/jobs/sfsites/c/resource/font/font/Poppins-Regular.woff2') format('woff2');
   }
   :host {
     --apperance: #F8F9FB;
@@ -749,7 +749,7 @@ input::file-selector-button{
 }
 .thankpage .thankpopup{
     width: 100%;
-    max-width: 50%;
+    max-width: 70%;
     margin: auto;
     box-shadow: 0px 10px 50px #0000000F;
     border: 1px solid #D3D3D3;

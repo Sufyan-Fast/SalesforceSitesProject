@@ -1,3 +1,66 @@
 <template>
-    
+    <section class="formsection">
+        <div class="container">
+           <div class="formheading">
+               <h3>Please complete the job application below.</h3>
+           </div>
+           <div class="form-field" id="form" >
+            <!-- action="ajaxupload.php" method="post" enctype="multipart/form-data" -->
+               <div class="forName">
+                   <label class="label">Name <span>*</span></label>
+                   <input class="Namefield" type="text">
+               </div>
+               <div class="forEmail">
+                   <label class="label">Email <span>*</span></label>
+                   <input class="Emailfield" type="text">
+               </div>
+               <div class="forphone">
+                   <label class="label">Phone <span>*</span></label>
+                   <input class="PhoneField" type="number">
+               </div>
+               <div class="foraddress">
+                   <label class="label">Address</label>
+                   <input class="AddressField" type="text">
+               </div>
+               <div class="forReffered">
+                   <label class="label">Referred By</label>
+                   <input class="referedby" type="text">
+               </div>
+               <div class="forcoverletter">
+                   <label class="label">Cover Letter</label>
+                   <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">
+                       
+                   </div>
+                   <div class="chosefilecoverletter">
+                       <input type="file" class="fileInput" accept="image/*">
+                   </div>
+               </div>
+               
+               <div class="forresume" id="imageContainer">
+                   <label class="label">Resume</label>
+                   
+                   <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage2">
+                       
+                   </div>
+                   <div class="chosefileresume">
+                       
+                       <input type="file" class="fileInput" accept="image/*">
+                      </div>
+               </div>
+           
+           </div>
+        </div>
+   </section>
+   
+   <section class="formsubmitionbutn">
+       <div class="btnformsubmit">
+           <button class="btn submitbutn"><a href=" https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/thankyou">Submit</a></button>
+           <button class="btn backbutn"><a href="#">Back</a></button>
+         </div>
+   </section>
+   <!-- <section class="formresponsemessage">
+       <div class="messagediv">
+           <p class="valueofsubmit">Thank you for Submit</p>
+       </div>
+   </section> -->
 </template>
