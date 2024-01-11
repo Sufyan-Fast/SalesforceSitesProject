@@ -8,24 +8,24 @@
             <!-- action="ajaxupload.php" method="post" enctype="multipart/form-data" -->
                <div class="forName">
                    <label class="label">Name <span>*</span></label>
-                   <input class="Namefield" type="text">
+                   <input class="Namefield" type="text" onkeyup={handleInput}>
                </div>
                <div class="forEmail">
                    <label class="label">Email <span>*</span></label>
-                   <input class="Emailfield" type="text">
+                   <input class="Emailfield" type="text" onkeyup={handleInput}>
                </div>
                <div class="forphone">
                    <label class="label">Phone <span>*</span></label>
-                   <input class="PhoneField" type="number">
+                   <input class="PhoneField" type="number" onkeyup={handleInput}>
                </div>
                <div class="foraddress">
                    <label class="label">Address</label>
-                   <input class="AddressField" type="text">
+                   <input class="AddressField" type="text" onkeyup={handleInput}>
                </div>
                <div class="forReffered">
                    <label class="label">Referred By</label>
-                   <input class="referedby" type="text">
-               </div>
+                   <input class="referedby" type="text" onkeyup={handleInput}>
+               </div> 
                <div class="forcoverletter">
                    <label class="label">Cover Letter</label>
                    <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">

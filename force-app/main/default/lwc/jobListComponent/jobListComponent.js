@@ -1,5 +1,5 @@
 import { LightningElement ,wire} from 'lwc';
-import IMAGES from '@salesforce/resourceUrl/images';
+import IMAGES from '@salesforce/resourceUrl/NewPic';
 import Get_All_Jobs from '@salesforce/apex/LWCSItesController.getAllJobs';
 import Get_View_All_Jobs from '@salesforce/apex/LWCSItesController.getViewAllJobs';
 import Get_Search_Jobs from '@salesforce/apex/LWCSItesController.searchJobs';
@@ -8,7 +8,7 @@ export default class JobListComponent extends LightningElement {
 
     allJobs;
     error;
-    teamsImage = IMAGES + '/images/MicrosoftTeams-image (23).png';
+    teamsImage = IMAGES + '/NewPic/microsoft.png';
     isLoaded = false;
     searchText;
 
