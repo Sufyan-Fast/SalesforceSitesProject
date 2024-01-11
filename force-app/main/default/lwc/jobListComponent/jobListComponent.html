@@ -7,8 +7,8 @@
                     <h1>Got Talent ?<br> Meet Opportunity</h1>
                     <div class="inputButton">
                         <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        <input type="search" placeholder="Job titles or keywords" class="inputsearch">
-                        <button class="butonsearch">Search</button>
+                        <input type="search" id="searchTxt" onkeyup={handleInput} placeholder="Job titles or keywords" class="inputsearch">
+                        <button class="butonsearch" onclick={searchJobs}>Search</button>
                     </div>
                     <p><span>Popular Searches:</span> Analytics, Customer Services, Design & Creative, Development & IT</p>
                 </div>
@@ -30,112 +30,33 @@
                     <h2>Latest jobs</h2>
                 </div>
                 <div class="alljobs">
-                    <a href="#">View all jobs</a>
+                <button class = "alljobsbtn" onclick={getAllJobs}>View all jobs</button>
                 </div>
             </div>
             <div class="Cardsjob">
-                <div class="cardscontent">
-                    <div class="cardsbody">
-                        <div class="cardscontenttop">
-                            <p><span>Date Posted:</span> December 8, 2022</p>
-                            <a href="#">5 days left to apply</a>
+                <template if:true={isLoaded}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                    </lightning-spinner>
+               </template>
+                <template for:each={allJobs} for:item="job">
+                <div class="cardscontent" key={job.Id}>
+                    <div class="cardsbody" >
+                        <div class="cardscontenttop" >
+                            <p><span>Date Posted:</span> {job.formattedPostedDate}</p>
+                            <!-- <a href="#">5 days left to apply</a> -->
                         </div>
-                        <h3>Sr. Full Stack Backend Developer</h3>
+                        <h3>{job.Name}</h3>
                         <br>
                         <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
                         <br>
                         <button class="fulltime">Full Time</button>
                         <button class="urgent">Urgent</button>
                         <button class="house">In House</button>
-                        <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p>
-                        <button class="viewDetail"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">View Detail</a></button>
+                        <!-- <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p> -->
+                        <button class="viewDetail"><a target="_self" href={job.Url}>View Detail</a></button>
                     </div>
                 </div>
-                <div class="cardscontent">
-                    <div class="cardsbody">
-                        <div class="cardscontenttop">
-                            <p><span>Date Posted:</span> December 8, 2022</p>
-                            <a href="#">5 days left to apply</a>
-                        </div>
-                        <h3>Sr. Full Stack Backend Developer</h3>
-                        <br>
-                        <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
-                        <br>
-                        <button class="fulltime">Full Time</button>
-                        <button class="urgent">Urgent</button>
-                        <button class="house">In House</button>
-                        <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p>
-                        <button class="viewDetail"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">View Detail</a></button>
-                    </div>
-                </div>
-                <div class="cardscontent">
-                    <div class="cardsbody">
-                        <div class="cardscontenttop">
-                            <p><span>Date Posted:</span> December 8, 2022</p>
-                            <a href="#">5 days left to apply</a>
-                        </div>
-                        <h3>Sr. Full Stack Backend Developer</h3>
-                        <br>
-                        <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
-                        <br>
-                        <button class="fulltime">Full Time</button>
-                        <button class="urgent">Urgent</button>
-                        <button class="house">In House</button>
-                        <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p>
-                        <button class="viewDetail"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">View Detail</a></button>
-                    </div>
-                </div>
-                <div class="cardscontent">
-                    <div class="cardsbody">
-                        <div class="cardscontenttop">
-                            <p><span>Date Posted:</span> December 8, 2022</p>
-                            <a href="#">5 days left to apply</a>
-                        </div>
-                        <h3>Sr. Full Stack Backend Developer</h3>
-                        <br>
-                        <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
-                        <br>
-                        <button class="fulltime">Full Time</button>
-                        <button class="urgent">Urgent</button>
-                        <button class="house">In House</button>
-                        <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p>
-                        <button class="viewDetail"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">View Detail</a></button>
-                    </div>
-                </div>  
-                <div class="cardscontent">
-                    <div class="cardsbody">
-                        <div class="cardscontenttop">
-                            <p><span>Date Posted:</span> December 8, 2022</p>
-                            <a href="#">5 days left to apply</a>
-                        </div>
-                        <h3>Sr. Full Stack Backend Developer</h3>
-                        <br>
-                        <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
-                        <br>
-                        <button class="fulltime">Full Time</button>
-                        <button class="urgent">Urgent</button>
-                        <button class="house">In House</button>
-                        <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p>
-                        <button class="viewDetail"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">View Detail</a></button>
-                    </div>
-                </div> 
-                <div class="cardscontent">
-                    <div class="cardsbody">
-                        <div class="cardscontenttop">
-                            <p><span>Date Posted:</span> December 8, 2022</p>
-                            <a href="#">5 days left to apply</a>
-                        </div>
-                        <h3>Sr. Full Stack Backend Developer</h3>
-                        <br>
-                        <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
-                        <br>
-                        <button class="fulltime">Full Time</button>
-                        <button class="urgent">Urgent</button>
-                        <button class="house">In House</button>
-                        <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p>
-                        <button class="viewDetail"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">View Detail</a></button>
-                    </div>
-                </div>                                                                  
+            </template>                                                                
             </div>
             
         </div>
