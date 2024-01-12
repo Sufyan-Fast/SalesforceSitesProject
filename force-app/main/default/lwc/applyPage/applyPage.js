@@ -17,6 +17,10 @@ export default class ApplyPage extends LightningElement {
     fileName;
     fileCoverContents;
     coverFileName;
+    isfile=false;
+    isName = false;
+    isEmail = false;
+    isPhone = false;
 
     async connectedCallback() {
         let params = {};
@@ -44,14 +48,26 @@ export default class ApplyPage extends LightningElement {
     getName(event)
     {
         this.Name = event.target.value;
+        if(this.Name)
+        {
+            this.isName = true;
+        }
     }
     getEmail(event)
     {
         this.Email = event.target.value;
+        if( this.Email)
+        {
+            this.isEmail = true;
+        }
     }
     getPhone(event)
     {
         this.Phone = event.target.value;
+        if(this.Phone)
+        {
+            this.isPhone = true;
+        }
     }
     getAddress(event)
     {
@@ -63,7 +79,8 @@ export default class ApplyPage extends LightningElement {
     }
 
     handleFileChange(event) {
-        const file = event.target.files[0]
+        const file = event.target.files[0];
+        this.isfile = true;
         console.log('file=>',file);
         var reader = new FileReader()
         reader.onload = () => {
@@ -117,8 +134,9 @@ export default class ApplyPage extends LightningElement {
         console.log('In submit');
         
         // const {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
-        if(this.Name !==null && this.Email !==null && this.Phone !==null && this.fileContents !==null)
+        if(this.isName && this.isEmail && this.isPhone && this.isfile)
         {
+        console.log('In handle submit if');
         const {base64, filename, recordId} = this.fileContents;
         Save_Job({applicantName: this.Name, jobId : this.jobId,Email: this.Email, phone: this.Phone ,Address: this.Address, 
             referredby: this.ReferBy,
