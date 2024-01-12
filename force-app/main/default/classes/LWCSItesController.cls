@@ -57,7 +57,9 @@ public without sharing class LWCSItesController {
         String Addresses,
         String referredby,
         String fileContents,
-        String fileName
+        String fileName,
+        String fileCoverContents,
+        String filenameCover
     ){
         Job_Application__c jobApp = new Job_Application__c();
         jobApp.Name = applicantName;
@@ -68,6 +70,7 @@ public without sharing class LWCSItesController {
         jobApp.Referred_By__c = referredby; 
         insert jobApp;
 
+        if (String.isNotBlank(fileName) && String.isNotBlank(fileContents)) {
         ContentVersion cv1 = new ContentVersion();
         cv1.VersionData = EncodingUtil.base64Decode(fileContents);
         cv1.Title = fileName;
@@ -75,68 +78,39 @@ public without sharing class LWCSItesController {
         insert cv1;
         System.debug('cv1=>' + cv1);
 
-        // ContentVersion cv2 = new ContentVersion();
-        // cv2.VersionData = EncodingUtil.base64Decode(fileCoverContents);
-        // cv2.Title = filenameCover;
-        // cv2.PathOnClient = filenameCover;
-        // insert cv2;
-        // System.debug('cv1=>' + cv2);
+        ContentDocumentLink cdl = new ContentDocumentLink();
+        cdl.ContentDocumentId = [
+          SELECT ContentDocumentId 
+          FROM ContentVersion 
+          WHERE Id =: cv1.Id
+        ].ContentDocumentId;
+        cdl.LinkedEntityId = jobApp.Id;
+        cdl.ShareType = 'V';
+          insert cdl;
+          System.debug('cdl=>' + cdl);
+
+        }
+
+        if (String.isNotBlank(filenameCover) && String.isNotBlank(fileCoverContents)) {
+        ContentVersion cv2 = new ContentVersion();
+        cv2.VersionData = EncodingUtil.base64Decode(fileCoverContents);
+        cv2.Title = filenameCover;
+        cv2.PathOnClient = filenameCover;
+        insert cv2;
+        System.debug('cv1=>' + cv2);
+
+        ContentDocumentLink cdl1 = new ContentDocumentLink();
+        cdl1.ContentDocumentId = [
+          SELECT ContentDocumentId 
+          FROM ContentVersion 
+          WHERE Id =: cv2.Id
+        ].ContentDocumentId;
+        cdl1.LinkedEntityId = jobApp.Id;
+        cdl1.ShareType = 'V';
+          insert cdl1;
+          System.debug('cdl=>' + cdl1);
+        }
         
-
-          ContentDocumentLink cdl = new ContentDocumentLink();
-          cdl.ContentDocumentId = [
-            SELECT ContentDocumentId 
-            FROM ContentVersion 
-            WHERE Id =: cv1.Id
-          ].ContentDocumentId;
-          cdl.LinkedEntityId = jobApp.Id;
-          cdl.ShareType = 'V';
-            insert cdl;
-            System.debug('cdl=>' + cdl);
-
-            // ContentDocumentLink cdl1 = new ContentDocumentLink();
-            // cdl.ContentDocumentId = [
-            //   SELECT ContentDocumentId 
-            //   FROM ContentVersion 
-            //   WHERE Id =: cv2.Id
-            // ].ContentDocumentId;
-            // cdl1.LinkedEntityId = jobApp.Id;
-            // cdl1.ShareType = 'V';
-            //   insert cdl1;
-            //   System.debug('cdl=>' + cdl1);
-        
-        // Attachment newAttachment = new Attachment();
-        // newAttachment.Name = fileName;
-        // newAttachment.Body = EncodingUtil.base64Decode(fileContents);
-        // newAttachment.ParentId = jobApp.Id; // Set the ParentId to associate the Attachment with a record
-
-        // // Insert the Attachment record
-        // insert newAttachment;
-
-        // ContentVersion newContentVersion = new ContentVersion();
-        // newContentVersion.Title = fileName;
-        // newContentVersion.VersionData = EncodingUtil.base64Decode(fileContents);
-        // newContentVersion.PathOnClient = fileName;
-        // // Insert the ContentVersion record
-        // insert newContentVersion;
-        // // if (String.isNotBlank(resumeDocumentId)) {
-        //     // Attach the uploaded file to the newly created record
-        //     ContentDocumentLink contentLink = new ContentDocumentLink();
-        //     contentLink.LinkedEntityId = jobApp.Id;
-        //     contentLink.ContentDocumentId = resumeDocumentId;
-        //     contentLink.ShareType = 'V';
-        //     contentLink.Visibility = 'AllUsers';
-        //     insert contentLink;
-        // // }
-        // // if (String.isNotBlank(resumeDocumentId)) {
-        //     // Attach the uploaded file to the newly created record
-        //     ContentDocumentLink CoverLink = new ContentDocumentLink();
-        //     CoverLink.LinkedEntityId = jobApp.Id;
-        //     CoverLink.ContentDocumentId = coverDocumentId;
-        //     CoverLink.ShareType = 'V';
-        //     CoverLink.Visibility = 'AllUsers'; 
-        //     insert CoverLink;
-        // }
     }
 
 

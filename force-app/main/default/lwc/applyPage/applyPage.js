@@ -21,6 +21,11 @@ export default class ApplyPage extends LightningElement {
     isName = false;
     isEmail = false;
     isPhone = false;
+    isCover = false;
+    fileReq=false;
+    NameReq = false;
+    EmailReq = false;
+    PhoneReq = false;
 
     async connectedCallback() {
         let params = {};
@@ -51,6 +56,7 @@ export default class ApplyPage extends LightningElement {
         if(this.Name)
         {
             this.isName = true;
+            this.NameReq = false;
         }
     }
     getEmail(event)
@@ -59,6 +65,7 @@ export default class ApplyPage extends LightningElement {
         if( this.Email)
         {
             this.isEmail = true;
+            this.EmailReq = false;
         }
     }
     getPhone(event)
@@ -67,6 +74,7 @@ export default class ApplyPage extends LightningElement {
         if(this.Phone)
         {
             this.isPhone = true;
+            this.PhoneReq = false;
         }
     }
     getAddress(event)
@@ -81,6 +89,7 @@ export default class ApplyPage extends LightningElement {
     handleFileChange(event) {
         const file = event.target.files[0];
         this.isfile = true;
+        this.fileReq = false;
         console.log('file=>',file);
         var reader = new FileReader()
         reader.onload = () => {
@@ -96,15 +105,16 @@ export default class ApplyPage extends LightningElement {
     }
 
     handleCoverFileChange(event) {
-        const file = event.target.files[0]
+        const file = event.target.files[0];
+        this.isCover = true;
         console.log('file=>',file);
         var reader = new FileReader()
         reader.onload = () => {
             var base64 = reader.result.split(',')[1]
             this.fileCoverContents = {
-                'filename': file.name,
-                'base64': base64,
-                'recordId': this.jobId
+                'filenameCover': file.name,
+                'base64Cover': base64,
+                'recordId1': this.jobId
             }
             console.log('this.fileCoverContents=>' ,this.fileCoverContents);
         }
@@ -112,37 +122,32 @@ export default class ApplyPage extends LightningElement {
     }
 
 
-    // handleUploadFinished(event) {
-    //     // Get the uploaded file's ContentDocumentId
-    //     console.log('handleUploadFinished');
-    //     const uploadedFiles = event.detail.files;
-    //     if (uploadedFiles.length > 0) {
-    //         this.resumeId = uploadedFiles[0].documentId;
-    //         console.log(this.resumeId);
-    //     }
-    // }
-    // handleUploadCoverFinished(event) {
-    //     // Get the uploaded file's ContentDocumentId
-    //     const uploadedFile = event.detail.files;
-    //     if (uploadedFile.length > 0) {
-    //         this.coverId = uploadedFile[0].documentId;
-    //     }
-    // }
+ 
+
 
     handleSubmit()
     {
         console.log('In submit');
-        
+
+    this.fileReq= this.isfile? false:true;
+    this.NameReq = this.isName?false:true;
+    this.EmailReq = this.isEmail?false:true;
+    this.PhoneReq = this.isPhone?false:true;
         // const {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
         if(this.isName && this.isEmail && this.isPhone && this.isfile)
         {
         console.log('In handle submit if');
         const {base64, filename, recordId} = this.fileContents;
+        if(this.isCover)
+        {
+            var {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
+        }
+
         Save_Job({applicantName: this.Name, jobId : this.jobId,Email: this.Email, phone: this.Phone ,Address: this.Address, 
             referredby: this.ReferBy,
              fileContents: base64, fileName: filename
-            // ,fileCoverContents : base64Cover,
-            // filenameCover : filenameCover
+            ,fileCoverContents : base64Cover,
+            filenameCover : filenameCover
                })
         .then( result =>{
             console.log('Succesfully Added');

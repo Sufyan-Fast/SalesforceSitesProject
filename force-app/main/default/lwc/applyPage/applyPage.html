@@ -9,14 +9,23 @@
                <div class="forName">
                    <label class="label">Name <span>*</span></label>
                    <input class="Namefield" type="text" onchange={getName}>
+                   <template if:true={NameReq}>
+                   <p class="requiredmsg">Required field</p>
+                   </template>
                </div>
                <div class="forEmail">
                    <label class="label">Email <span>*</span></label>
                    <input class="Emailfield" type="text" onchange={getEmail}>
+                   <template if:true={EmailReq}>
+                    <p class="requiredmsg">Required field</p>
+                    </template>
                </div>
                <div class="forphone">
                    <label class="label">Phone <span>*</span></label>
                    <input class="PhoneField" type="number" onchange={getPhone}>
+                   <template if:true={PhoneReq}>
+                    <p class="requiredmsg">Required field</p>
+                    </template>
                </div>
                <div class="foraddress">
                    <label class="label">Address</label>
@@ -31,7 +40,7 @@
                    <!-- <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">    
                    </div> -->
                    <div class="chosefilecoverletter">
-                       <input type="file" class="fileInput" accept=".pdf" onchange={handleCoverFileChange}>
+                       <input type="file" class="fileInput" accept={acceptedFormats} onchange={handleCoverFileChange}>
                    </div>
                </div>             
                <div class="forresume" id="imageContainer">
@@ -42,7 +51,10 @@
                    </div> -->
                    <div class="chosefileresume">
                        
-                    <input type="file" class="fileInput" accept=".pdf" onchange={handleFileChange}></input>
+                    <input type="file" class="fileInput" accept={acceptedFormats} onchange={handleFileChange}></input>
+                    <template if:true={fileReq}>
+                        <p class="requiredmsg">Attachment required</p>
+                        </template>
                       </div>
                </div>
            
