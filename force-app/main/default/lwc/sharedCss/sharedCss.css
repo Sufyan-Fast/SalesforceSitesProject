@@ -82,6 +82,14 @@
     font-size: 18px;
     
 }
+.navigation .navbar .menubar ul.pagelist li a:hover{
+    padding:5px 0px 0px 30px;
+    text-decoration: none;
+    color: #0000FF;
+    font-family:popinmedium;
+    font-size: 18px;
+    
+}
 .mmenu{
     background-color: #00BFFF;
     width: 320px;
@@ -560,6 +568,26 @@ input::file-selector-button{
 }
 .formsubmitionbutn .btnformsubmit button{
     border:none;
+    color:var(--black);
+    background-color: var(--green);
+    width: 110px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family:popinmedium;
+    text-decoration: none;
+    color:var(--black);
+}
+.formsubmitionbutn .btnformsubmit button:hover{
+    color:var(--green);
+    border:1px solid var(--green);
+    background-color: var(--white);
 }
 .formsubmitionbutn .btnformsubmit button a{
     color:var(--black);
@@ -823,9 +851,72 @@ input::file-selector-button{
 
 /****************Responsive View of the page************/
 @media(max-width:1560px){
+    .container{
+        max-width:1200px;
+    }
+    .gottalent .gottalentContent .leftContent h1{
+        font-size: 40px;
+        line-height: 55px;
+    }
+    .gottalent .gottalentContent .leftContent .inputButton .inputsearch{
+        height: 55px;
+        width: 600px;
+    }
+    .gottalent .gottalentContent .leftContent .inputButton .butonsearch{
+        height: 35px;
+        width: 120px;
+    }
+    .gottalent .gottalentContent .leftContent .inputButton a i{
+        top:-1px;
+    }
+.LatestJob{
+      padding:30px 0px;
+}
+.LatestJob .titleofjob{
+    padding:10px 20px 20px 0px;
+}
+    .LatestJob .cardscontent{
+        width:28%;
+        margin: 10px 60px 0px 0px;
+    }
+    .LatestJob .Cardsjob .cardsbody{
+        width:384px;
+        margin: 0px 0px;
+    }
+    .LatestJob .Cardsjob .cardsbody h3{
+        font-size: 18px;
+    }
+    .LatestJob .Cardsjob .cardsbody .cardscontenttop p,.LatestJob .Cardsjob .cardsbody .cardscontenttop a{
+        font-size: 11px;
+    }
+    .LatestJob .Cardsjob .cardsbody .viewDetail{
+        font-size: 14px;
+        width: 120px;
+        height: 35px;
+    }
+    .detailhero .jobpost .leftside h3{
+        font-size: 30px;
+    }
+    .detailhero .jobpost .leftside .datepst,.detailhero .jobpost .leftside .profession{
+        font-size: 18px;
+        
+    }
+    .detailhero .jobpost .rightside .applybutton button a {
+        width: 379px;
+        height: 66px;
+    }
+    .overviewsection .overviewContent .left-side {
+       width: 75%;
+    }
+    .overviewsection .overviewContent .rightcontent{
+        width: 25%;
+    }
+
     .gottalent .gottalentContent .rightContent .heroimage{
-        width: 800px;
+        width: 700px;
         right: -30px;
+        height: 341px;
+        top:-3px;
     }
     .thankpage {
         width: 100%;
@@ -902,6 +993,19 @@ input::file-selector-button{
         padding: 8rem 0px;
     }
 }
+@media(max-width:1280px){
+    .container{
+        max-width:1020px;
+    }
+    .LatestJob .cardscontent{
+        width: 27%;
+        
+    }
+    .LatestJob .Cardsjob .cardsbody{
+        width:322px;
+       
+    }
+}
 @media(max-width:1200px){
     .container{
         max-width:999px;
@@ -962,14 +1066,17 @@ input::file-selector-button{
     .gottalent .gottalentContent .rightContent .heroimage {
     right: -40px;
     }
-    .LatestJob .cardscontent{
-        width: 44%;
-        margin: 10px 31px 0px 0px;
+ 
+    .LatestJob .cardscontent {
+        width: 47%;
+        margin: 10px 20px 0px 0px;
     }
+
     .LatestJob .Cardsjob .cardsbody{
-        width:385px;
-       
-    }
+        width:477px;
+        margin: 0px 0px;
+    } 
+    
 }
 @media(max-width:992px){
     .menubar{

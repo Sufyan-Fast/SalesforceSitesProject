@@ -8,43 +8,41 @@
             <!-- action="ajaxupload.php" method="post" enctype="multipart/form-data" -->
                <div class="forName">
                    <label class="label">Name <span>*</span></label>
-                   <input class="Namefield" type="text" onkeyup={handleInput}>
+                   <input class="Namefield" type="text" onchange={getName}>
                </div>
                <div class="forEmail">
                    <label class="label">Email <span>*</span></label>
-                   <input class="Emailfield" type="text" onkeyup={handleInput}>
+                   <input class="Emailfield" type="text" onchange={getEmail}>
                </div>
                <div class="forphone">
                    <label class="label">Phone <span>*</span></label>
-                   <input class="PhoneField" type="number" onkeyup={handleInput}>
+                   <input class="PhoneField" type="number" onchange={getPhone}>
                </div>
                <div class="foraddress">
                    <label class="label">Address</label>
-                   <input class="AddressField" type="text" onkeyup={handleInput}>
+                   <input class="AddressField" type="text" onchange={getAddress}>
                </div>
                <div class="forReffered">
                    <label class="label">Referred By</label>
-                   <input class="referedby" type="text" onkeyup={handleInput}>
+                   <input class="referedby" type="text" onchange={getReferBy}>
                </div> 
                <div class="forcoverletter">
                    <label class="label">Cover Letter</label>
-                   <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">
-                       
-                   </div>
+                   <!-- <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">    
+                   </div> -->
                    <div class="chosefilecoverletter">
-                       <input type="file" class="fileInput" accept="image/*">
+                       <input type="file" class="fileInput" accept=".pdf" onchange={handleCoverFileChange}>
                    </div>
-               </div>
-               
+               </div>             
                <div class="forresume" id="imageContainer">
-                   <label class="label">Resume</label>
+                   <label class="label">Resume <span>*</span></label>
                    
-                   <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage2">
+                   <!-- <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage2">
                        
-                   </div>
+                   </div> -->
                    <div class="chosefileresume">
                        
-                       <input type="file" class="fileInput" accept="image/*">
+                    <input type="file" class="fileInput" accept=".pdf" onchange={handleFileChange}></input>
                       </div>
                </div>
            
@@ -54,8 +52,8 @@
    
    <section class="formsubmitionbutn">
        <div class="btnformsubmit">
-           <button class="btn submitbutn"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/thankyou">Submit</a></button>
-           <button class="btn backbutn"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail">Back</a></button>
+           <button class="btn submitbutn" onclick={handleSubmit}>Submit</button>
+           <button class="btn backbutn"><a target="_self" href={backUrl}>Back</a></button>
          </div>
    </section>
    <!-- <section class="formresponsemessage">

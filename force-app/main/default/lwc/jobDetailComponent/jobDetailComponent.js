@@ -41,7 +41,8 @@ export default class JobDetailComponent extends LightningElement {
             let jobData = {
                 ...this.JobData,
                 formattedPostedDate : new Date(result.Date_Posted__c).toLocaleDateString('en-US', options),
-                formattedTargetDate : new Date(result.Target_Hire_Date__c).toLocaleDateString('en-US', options)
+                formattedTargetDate : new Date(result.Target_Hire_Date__c).toLocaleDateString('en-US', options),
+                applyURL : 'https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/apply?id=' + result.Id
             };
             this.JobData = jobData;
             console.log('jobdata' , jobData);
