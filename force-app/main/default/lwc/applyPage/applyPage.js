@@ -26,6 +26,11 @@ export default class ApplyPage extends LightningElement {
     NameReq = false;
     EmailReq = false;
     PhoneReq = false;
+    isFileSize = false;
+    isCoverFileSize = false;
+    validEmail = false;
+    isLoaded = false;
+    isError = false;
 
     async connectedCallback() {
         let params = {};
@@ -53,41 +58,62 @@ export default class ApplyPage extends LightningElement {
     getName(event)
     {
         this.Name = event.target.value;
+        this.isError = false;
         if(this.Name)
         {
             this.isName = true;
             this.NameReq = false;
+         
         }
     }
     getEmail(event)
     {
         this.Email = event.target.value;
+        this.isError = false;
         if( this.Email)
         {
             this.isEmail = true;
             this.EmailReq = false;
+            this.validEmail = false;
+         
         }
     }
     getPhone(event)
     {
         this.Phone = event.target.value;
+        this.isError = false;
         if(this.Phone)
         {
             this.isPhone = true;
             this.PhoneReq = false;
+          
         }
     }
     getAddress(event)
     {
         this.Address = event.target.value;
+        this.isError = false;
     }
     getReferBy(event)
     {
         this.ReferBy = event.target.value;
+        this.isError = false;
     }
+
+    validateEmail(email) {
+        let re = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+        return re.test(email);
+      }
 
     handleFileChange(event) {
         const file = event.target.files[0];
+        this.isError = false;
+        const fileSize = file.size;
+        const fileMb = fileSize / 1024 ** 2;  //convert bytes into megabytes MB
+        console.log('fileMb=>',fileMb);
+        if(fileMb <= 2) // 2mb is the max file size;
+        {
+        this.isFileSize = false;
         this.isfile = true;
         this.fileReq = false;
         console.log('file=>',file);
@@ -103,10 +129,24 @@ export default class ApplyPage extends LightningElement {
         }
         reader.readAsDataURL(file);
     }
+    else
+        {
+            this.fileReq = false;
+            this.isFileSize = true;
+            console.log('File size limit exceeds');
+        }
+    }
 
     handleCoverFileChange(event) {
         const file = event.target.files[0];
+        this.isError = false;
+        const fileSize = file.size;
+        const fileMb = fileSize / 1024 ** 2;  //convert bytes into megabytes MB
+        console.log('fileMb=>',fileMb);
+        if(fileMb <= 2) // 2mb is the max file size;
+        {
         this.isCover = true;
+        this.isCoverFileSize = false;
         console.log('file=>',file);
         var reader = new FileReader()
         reader.onload = () => {
@@ -120,6 +160,12 @@ export default class ApplyPage extends LightningElement {
         }
         reader.readAsDataURL(file);
     }
+    else
+    {
+        this.isCoverFileSize = true;
+        console.log('File size limit exceeds');
+    }
+    }
 
 
  
@@ -127,12 +173,27 @@ export default class ApplyPage extends LightningElement {
 
     handleSubmit()
     {
-        console.log('In submit');
-
+    console.log('In submit');
     this.fileReq= this.isfile? false:true;
     this.NameReq = this.isName?false:true;
     this.EmailReq = this.isEmail?false:true;
     this.PhoneReq = this.isPhone?false:true;
+
+    if(this.isEmail)
+    {
+        //this.validEmail = this.validateEmail(this.Email)?false:true;
+        if(this.validateEmail(this.Email))
+        {
+            this.validEmail = false;
+        }
+        else
+        {
+            this.validEmail = true;
+            this.isEmail = false;
+            this.EmailReq = false;
+        }
+    }
+
         // const {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
         if(this.isName && this.isEmail && this.isPhone && this.isfile)
         {
@@ -142,7 +203,7 @@ export default class ApplyPage extends LightningElement {
         {
             var {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
         }
-
+        this.isLoaded = true;
         Save_Job({applicantName: this.Name, jobId : this.jobId,Email: this.Email, phone: this.Phone ,Address: this.Address, 
             referredby: this.ReferBy,
              fileContents: base64, fileName: filename
@@ -151,10 +212,13 @@ export default class ApplyPage extends LightningElement {
                })
         .then( result =>{
             console.log('Succesfully Added');
+            this.isLoaded = false;
             window.open("https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/thankyou","_self")
         })
         .catch ( error => {
             console.log(error);
+            this.isLoaded = false;
+            this.isError = true;
         });
  
     }

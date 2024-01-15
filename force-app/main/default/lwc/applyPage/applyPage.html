@@ -19,6 +19,9 @@
                    <template if:true={EmailReq}>
                     <p class="requiredmsg">Required field</p>
                     </template>
+                    <template if:true={validEmail}>
+                        <p class="requiredmsg">Enter a valid Email address</p>
+                        </template>
                </div>
                <div class="forphone">
                    <label class="label">Phone <span>*</span></label>
@@ -35,12 +38,21 @@
                    <label class="label">Referred By</label>
                    <input class="referedby" type="text" onchange={getReferBy}>
                </div> 
+
+               <template if:true={isLoaded}>
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                </lightning-spinner>
+           </template>
+
                <div class="forcoverletter">
                    <label class="label">Cover Letter</label>
                    <!-- <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">    
                    </div> -->
                    <div class="chosefilecoverletter">
                        <input type="file" class="fileInput" accept={acceptedFormats} onchange={handleCoverFileChange}>
+                       <template if:true={isCoverFileSize}>
+                        <p class="requiredmsg">Maximum allowed file size is 2 MB</p>
+                    </template>
                    </div>
                </div>             
                <div class="forresume" id="imageContainer">
@@ -54,8 +66,14 @@
                     <input type="file" class="fileInput" accept={acceptedFormats} onchange={handleFileChange}></input>
                     <template if:true={fileReq}>
                         <p class="requiredmsg">Attachment required</p>
+                    </template>
+                    <template if:true={isFileSize}>
+                        <p class="requiredmsg">Maximum allowed file size is 2 MB</p>
+                    </template>
+                    </div>
+                        <template if:true={isError}>
+                            <p class="requiredmsg">Submission failed, Try Again</p>
                         </template>
-                      </div>
                </div>
            
            </div>
