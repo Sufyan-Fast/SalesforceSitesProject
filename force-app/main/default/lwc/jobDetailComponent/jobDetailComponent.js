@@ -4,6 +4,20 @@ export default class JobDetailComponent extends LightningElement {
    // recordId;
     JobData;
     error;
+    // dumyData = {
+    //     Name : 'Dummy job',
+    //     formattedPostedDate : 'January 27, 2024',
+    //     applyURL : '#',
+    //     Job_Description__c : 'Dummy Data',
+    //     Job_Requirements__c : 'Dummy Data',
+    //     Qualifications__c : 'Dummy Data',
+    //     Job_Responsibilities__c : 'Dummy Data',
+    //     Required_Skills__c : 'Dummy Data',
+    //     Job_Number__c : 'job-0000',
+    //     Experience_Required__c : 'test',
+    //     formattedTargetDate : 'January 27, 2024'
+
+    // };
 
     async connectedCallback() {
         let params = {};
@@ -12,6 +26,7 @@ export default class JobDetailComponent extends LightningElement {
         const obj = Object.assign({}, params);
         console.log('obj=>', obj);
         let recordId = obj.id;
+        // this.JobData = (recordId ===null ||  recordId === '')? this.dumyData : '';
         console.log('Id=>' ,recordId);
         await this.getJobData(recordId);
     }
