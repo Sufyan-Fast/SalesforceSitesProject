@@ -1,0 +1,38 @@
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+            Custom Setting
+        </h3>
+        <div class="body">
+            <div class="container">
+                <div class="centerBox">
+                    <lightning-tabset>
+                        <lightning-tab label="Logo">
+
+                            <div class="fileupload">
+                                <p>Please Upload the Logo for the site</p>
+                                <lightning-file-upload label="Attach Logo" name="fileUploader" accept={acceptedFormats}
+                                    onuploadfinished={handleUploadFinished} multiple="false">
+                                </lightning-file-upload>
+                            </div>
+                            <p class="fileName">{fileName}</p>
+                            <div class="buttons">
+                                <lightning-button variant="brand" label="Save" onclick={handleSave}
+                                    class="slds-m-left_x-small" disabled={disabled}></lightning-button>
+                            </div>
+
+
+                        </lightning-tab>
+                        <lightning-tab label="Site URL">
+                            Two Content !
+                        </lightning-tab>
+                        <lightning-tab label="Other">
+                            Three Content !
+                        </lightning-tab>
+                    </lightning-tabset>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,50 @@
+.container{
+width:100%;
+background: white;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.centerBox {
+    margin-top: 20px;
+    height: 100%;
+    width: 800px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #c9c9c9;
+}
+.body {
+    background: white;
+    height: 100%;
+    width: 100%;
+    border-top: 1px solid #c9c9c9;
+
+}
+.fileupload {
+
+    margin-left: 10px;
+    margin-top: 10px;
+    padding:10px;
+}
+.fileupload p{
+    font-weight: bold;
+    font-size: 16px;
+    font-style: normal;
+    font-family: sans-serif;
+}
+.buttons{
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+.fileName{
+    font-size: 14px;
+    font-style: normal;
+    font-family: sans-serif;
+    margin-left: 20px;
+    margin-top: 0px;
+}
+
+
