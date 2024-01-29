@@ -2,18 +2,26 @@
     <section class="formsection">
         <div class="container">
            <div class="formheading">
-               <h3>Please complete the job application below.</h3>
+            <p>Please complete the job application below.</p>
            </div>
            <div class="form-field" id="form" >
             <!-- action="ajaxupload.php" method="post" enctype="multipart/form-data" -->
-               <div class="forName">
-                   <label class="label">Name <span>*</span></label>
-                   <input class="Namefield" type="text" onchange={getName}>
+            <div class="row">
+               <div class="forName col-lg-6 col-md-6 col-12">
+                   <label class="label">First Name <span>*</span></label>
+                   <input class="Namefield" type="text" onchange={getFirstName}>
                    <template if:true={NameReq}>
                    <p class="requiredmsg">Required field</p>
                    </template>
                </div>
-               <div class="forEmail">
+               <div class="forName col-lg-6 col-md-6 col-12">
+                <label class="label">Last Name <span>*</span></label>
+                <input class="Namefield" type="text" onchange={getLastName}>
+                <template if:true={lastNameReq}>
+                <p class="requiredmsg">Required field</p>
+                </template>
+            </div>
+               <div class="forEmail col-lg-6 col-md-6 col-12">
                    <label class="label">Email <span>*</span></label>
                    <input class="Emailfield" type="text" onchange={getEmail}>
                    <template if:true={EmailReq}>
@@ -23,18 +31,18 @@
                         <p class="requiredmsg">Enter a valid Email address</p>
                         </template>
                </div>
-               <div class="forphone">
+               <div class="forphone col-lg-6 col-md-6 col-12">
                    <label class="label">Phone <span>*</span></label>
                    <input class="PhoneField" type="number" onchange={getPhone}>
                    <template if:true={PhoneReq}>
                     <p class="requiredmsg">Required field</p>
                     </template>
                </div>
-               <div class="foraddress">
+               <div class="foraddress col-lg-6 col-md-6 col-12">
                    <label class="label">Address</label>
                    <input class="AddressField" type="text" onchange={getAddress}>
                </div>
-               <div class="forReffered">
+               <div class="forReffered col-lg-6 col-md-6 col-12">
                    <label class="label">Referred By</label>
                    <input class="referedby" type="text" onchange={getReferBy}>
                </div> 
@@ -44,7 +52,7 @@
                 </lightning-spinner>
            </template>
 
-               <div class="forcoverletter">
+               <div class="forcoverletter col-lg-6 col-md-6 col-12">
                    <label class="label">Cover Letter</label>
                    <!-- <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage1">    
                    </div> -->
@@ -55,7 +63,7 @@
                     </template>
                    </div>
                </div>             
-               <div class="forresume" id="imageContainer">
+               <div class="forresume col-lg-6 col-md-6 col-12" id="imageContainer">
                    <label class="label">Resume <span>*</span></label>
                    
                    <!-- <div class="resumeletter imagesattach" contenteditable="true" id="displayedImage2">
@@ -75,20 +83,19 @@
                             <p class="errormsg">Submission failed, Try Again</p>
                         </template>
                </div>
-           
+            </div>
            </div>
         </div>
    </section>
    
    <section class="formsubmitionbutn">
-       <div class="btnformsubmit">
-           <button class="btn submitbutn" onclick={handleSubmit}>Submit</button>
-           <button class="btn backbutn"><a target="_self" href={backUrl}>Back</a></button>
+    <div class="container">
+       <div class="btnformsubmit row">
+        <div class="col-12">
+           <button class="btn submitbutn p-0" onclick={handleSubmit}><a>Submit</a></button>
+        </div> 
+        </div>
          </div>
    </section>
-   <!-- <section class="formresponsemessage">
-       <div class="messagediv">
-           <p class="valueofsubmit">Thank you for Submit</p>
-       </div>
-   </section> -->
+  
 </template>

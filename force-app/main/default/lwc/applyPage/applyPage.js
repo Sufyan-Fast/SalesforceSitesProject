@@ -1,11 +1,16 @@
-import { LightningElement } from 'lwc';
+import { LightningElement ,wire} from 'lwc';
 import Save_Job from '@salesforce/apex/LWCSItesController.saveJobApplication';
+import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
+import jquery from '@salesforce/resourceUrl/jquery';
+import bootstrap from '@salesforce/resourceUrl/bootstrap';
+import Get_Site_URL from '@salesforce/apex/LWCSItesController.getLWCSitesURL';
 
 export default class ApplyPage extends LightningElement {
 
     backUrl;
     jobId;
     Name;
+    LastName;
     Email;
     Phone;
     Address;
@@ -19,11 +24,13 @@ export default class ApplyPage extends LightningElement {
     coverFileName;
     isfile=false;
     isName = false;
+    isLastName = false;
     isEmail = false;
     isPhone = false;
     isCover = false;
     fileReq=false;
     NameReq = false;
+    lastNameReq = false;
     EmailReq = false;
     PhoneReq = false;
     isFileSize = false;
@@ -31,6 +38,34 @@ export default class ApplyPage extends LightningElement {
     validEmail = false;
     isLoaded = false;
     isError = false;
+    siteURL;
+
+    renderedCallback() {
+        Promise.all([
+            loadStyle(this, bootstrap + '/bootstrap/css/bootstrap.css'),
+            loadStyle(this, bootstrap + '/bootstrap/css/bootstrap.min.css'),
+            loadScript(this, bootstrap + '/bootstrap/js/bootstrap.js'),
+            loadScript(this, jquery)     
+        ])
+            .then(() => {
+                console.log('Bootstrap Loaded');
+            })
+            .catch(error => {
+                console.log('Bootstrap Not Loaded');
+            });
+    }
+
+    
+    @wire(Get_Site_URL) 
+    wiredJobs ({ error, data }) {
+        if (data) {
+            console.log('data=>' , data);         
+            this.siteURL = data;
+            this.error = undefined;
+       } else if (error) { 
+           this.error = error; 
+           this.siteURL = undefined;
+      }   }
 
     async connectedCallback() {
         let params = {};
@@ -40,7 +75,7 @@ export default class ApplyPage extends LightningElement {
         console.log('obj=>', obj);
         let recordId = obj.id;
         this.jobId = recordId;
-        this.backUrl = 'https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail?id=' + recordId;
+        // this.backUrl = 'https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/jobdetail?id=' + recordId;
         console.log('Id=>' ,recordId);
         // await this.getJobData(recordId);
     }
@@ -55,7 +90,7 @@ export default class ApplyPage extends LightningElement {
         return params;
     }
 
-    getName(event)
+    getFirstName(event)
     {
         this.Name = event.target.value;
         this.isError = false;
@@ -66,6 +101,19 @@ export default class ApplyPage extends LightningElement {
          
         }
     }
+
+    getLastName(event)
+    {
+        this.LastName = event.target.value;
+        this.isError = false;
+        if(this.LastName)
+        {
+            this.isLastName = true;
+            this.lastNameReq = false;
+         
+        }
+    }
+
     getEmail(event)
     {
         this.Email = event.target.value;
@@ -106,9 +154,15 @@ export default class ApplyPage extends LightningElement {
       }
 
     handleFileChange(event) {
+        console.log('handleFileChange');
+        this.fileReq = false;
+        this.isfile = false;
         const file = event.target.files[0];
+        if(file)
+        {
         this.isError = false;
         const fileSize = file.size;
+       
         const fileMb = fileSize / 1024 ** 2;  //convert bytes into megabytes MB
         console.log('fileMb=>',fileMb);
         if(fileMb <= 2) // 2mb is the max file size;
@@ -129,6 +183,7 @@ export default class ApplyPage extends LightningElement {
         }
         reader.readAsDataURL(file);
     }
+
     else
         {
             this.fileReq = false;
@@ -136,11 +191,17 @@ export default class ApplyPage extends LightningElement {
             console.log('File size limit exceeds');
         }
     }
+    }
 
     handleCoverFileChange(event) {
+        console.log('handleFileChange');
+        this.isCover = false;
         const file = event.target.files[0];
+        if(file)
+        {
         this.isError = false;
         const fileSize = file.size;
+        
         const fileMb = fileSize / 1024 ** 2;  //convert bytes into megabytes MB
         console.log('fileMb=>',fileMb);
         if(fileMb <= 2) // 2mb is the max file size;
@@ -165,6 +226,7 @@ export default class ApplyPage extends LightningElement {
         this.isCoverFileSize = true;
         console.log('File size limit exceeds');
     }
+}
     }
 
 
@@ -176,6 +238,7 @@ export default class ApplyPage extends LightningElement {
     console.log('In submit');
     this.fileReq= this.isfile? false:true;
     this.NameReq = this.isName?false:true;
+    this.lastNameReq = this.isLastName?false:true;
     this.EmailReq = this.isEmail?false:true;
     this.PhoneReq = this.isPhone?false:true;
 
@@ -195,7 +258,7 @@ export default class ApplyPage extends LightningElement {
     }
 
         // const {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
-        if(this.isName && this.isEmail && this.isPhone && this.isfile)
+        if(this.isName && this.isLastName && this.isEmail && this.isPhone && this.isfile)
         {
         console.log('In handle submit if');
         const {base64, filename, recordId} = this.fileContents;
@@ -204,7 +267,9 @@ export default class ApplyPage extends LightningElement {
             var {base64Cover, filenameCover, recordId1} = this.fileCoverContents;
         }
         this.isLoaded = true;
-        Save_Job({applicantName: this.Name, jobId : this.jobId,Email: this.Email, phone: this.Phone ,Address: this.Address, 
+        let fullName = this.Name + ' ' + this.LastName;
+        console.log('fullName ' + fullName);
+        Save_Job({applicantName: fullName, jobId : this.jobId,Email: this.Email, phone: this.Phone ,Address: this.Address, 
             referredby: this.ReferBy,
              fileContents: base64, fileName: filename
             ,fileCoverContents : base64Cover,
@@ -213,7 +278,8 @@ export default class ApplyPage extends LightningElement {
         .then( result =>{
             console.log('Succesfully Added');
             this.isLoaded = false;
-            window.open("https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/thankyou","_self")
+            let thanksPage =  this.siteURL + 'thankyou';
+            window.open(thanksPage,"_self");
         })
         .catch ( error => {
             console.log(error);

@@ -5,12 +5,13 @@
                 <div class="leftside">
                     <p class="datepst"><span class="by">Date Posted:</span> {JobData.formattedPostedDate}</p>
                     <h3>{JobData.Name}</h3>
-                    <p class="profession"><span class="by">By</span> <span class="compay"> HawkLogix Pakistan </span> <span class="by">in</span> Development & IT</p>
-                    <div class="button-group">
+                    <p class="profession"><span class="by">By</span> <span class="compay"> HawkLogix Pakistan </span>
+                        <span class="by">in</span> Development & IT</p>
+                    <!-- <div class="button-group">
                         <button class="fulltime">Full Time</button>
                         <button class="urgent">Urgent</button>
                         <button class="inhouse">In House</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="rightside">
                     <div class="applybutton">
@@ -18,19 +19,20 @@
                     </div>
                 </div>
             </div>
+            <hr>
         </div>
     </section>
-    
+
     <!--overview section-->
-    
+
     <section class="overviewsection">
         <div class="container">
-            <div class="overviewContent">
-                <div class="left-side">
-                    <div class="overviewheading">
+            <div class="overviewContent row">
+                <div class="left-side col-lg-8 col-md-7 col-sm-12">
+                    <!-- <div class="overviewheading">
                         <h4>Overview</h4>
                         <p>{JobData.Job_Description__c}</p>
-                    </div>
+                    </div> -->
                     <div class="jobrequeriment">
                         <h4>Job Requirements</h4>
                         <p>{JobData.Job_Requirements__c}</p>
@@ -40,64 +42,65 @@
                         <p>{JobData.Qualifications__c}</p>
                     </div>
                     <div class="responsibilites">
-                        <h4>Responsibilities</h4>
+                        <h4>Job Description</h4>
                         <!-- <ul> -->
-                            <p>{JobData.Job_Responsibilities__c}</p>
-                            <!-- <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                        <p>{JobData.Job_Responsibilities__c}</p>
+                        <!-- <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
                             <li>Sed vel dui eget lorem accumsan laoreet ac quis risus.</li>
                             <li>Suspendisse fringilla justo id eleifend varius.</li>
                             <li>Aliquam eu ipsum hendrerit, condimentum tortor auctor, venenatis urna.</li>
                             <li>Nulla suscipit lacus eget tellus finibus laoreet.</li> -->
                         <!-- </ul> -->
                     </div>
-                    <div class="RequriredSkill">
+                    <!-- <div class="RequriredSkill">
                         <h4>Required Skills</h4>
-                        <p>{JobData.Required_Skills__c}</p>
-                        <!-- <ul>
+                        <p>{JobData.Required_Skills__c}</p> -->
+                    <!-- <ul>
                             <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
                             <li>Sed vel dui eget lorem accumsan laoreet ac quis risus.</li>
                             <li>Suspendisse fringilla justo id eleifend varius.</li>
                             <li>Aliquam eu ipsum hendrerit, condimentum tortor auctor, venenatis urna.</li>
                             <li>Nulla suscipit lacus eget tellus finibus laoreet.</li>
                         </ul> -->
-                    </div>
+                    <!-- </div> -->
                     <div class="backbtn">
-                        <button class="backbutn"><a target="_self" href="https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/">Back</a></button>
+                        <button class="backbutn"><a target="_self"
+                                href={siteURL}>Back</a></button>
                     </div>
                 </div>
-                <div class="rightcontent">
-                    <div class="sidebarcontent">
-                        <div class="jobnumber">
+                <div class="rightcontent mb-sm-5 col-lg-4 col-md-5 col-sm-12">
+                    <div class="sidebarcontent row">
+                        <div class="jobnumber col-lg-12 col-md-12 col-6">
                             <p class="title">Job Number</p>
                             <p>{JobData.Job_Number__c}</p>
                         </div>
-                        
-                        <div class="jobnumber">
+
+                        <div class="jobnumber col-lg-12 col-md-12 col-6">
                             <p class="title">Location</p>
                             <p>Lahore, Pakistan</p>
                         </div>
-                        <div class="jobnumber">
+                        <div class="jobnumber col-lg-12 col-md-12 col-6">
                             <p class="title">Experience Required</p>
                             <p>{JobData.Experience_Required__c}</p>
                         </div>
-                        <div class="jobnumber">
+                        <div class="jobnumber col-lg-12 col-md-12 col-6">
                             <p class="title">Job Type</p>
                             <p>Full Time</p>
                         </div>
-                        <div class="jobnumber">
+                        <div class="jobnumber col-lg-12 col-md-12 col-6">
                             <p class="title">Salary</p>
                             <p>100,000/Monthly</p>
                         </div>
-                        <div class="jobnumber">
+                        <div class="jobnumber col-lg-12 col-md-12 col-6">
                             <p class="title">Last Date</p>
                             <p>{JobData.formattedTargetDate}</p>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </section>
-    
-    
+
+
 </template>

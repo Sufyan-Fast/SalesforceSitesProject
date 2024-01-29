@@ -25,7 +25,13 @@
 
                         </lightning-tab>
                         <lightning-tab label="Site URL">
-                            Two Content !
+                            <div class="urlinput">
+                            <lightning-input type="url" label="Enter a Url of Site" name="input1" ></lightning-input>
+                        </div>
+                            <div class="buttons">
+                                <lightning-button variant="brand" label="Save" onclick={handleSave}
+                                    class="slds-m-left_x-small" disabled={disabled}></lightning-button>
+                            </div>
                         </lightning-tab>
                         <lightning-tab label="Other">
                             Three Content !

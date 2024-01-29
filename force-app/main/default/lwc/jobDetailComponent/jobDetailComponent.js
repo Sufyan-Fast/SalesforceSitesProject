@@ -1,9 +1,14 @@
 import { LightningElement,api,wire} from 'lwc';
 import Get_JOB_DATA from '@salesforce/apex/LWCSItesController.getJobData';
+import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
+import jquery from '@salesforce/resourceUrl/jquery';
+import bootstrap from '@salesforce/resourceUrl/bootstrap';
+import Get_Site_URL from '@salesforce/apex/LWCSItesController.getLWCSitesURL';
 export default class JobDetailComponent extends LightningElement {
    // recordId;
     JobData;
     error;
+    siteURL;
     // dumyData = {
     //     Name : 'Dummy job',
     //     formattedPostedDate : 'January 27, 2024',
@@ -19,6 +24,32 @@ export default class JobDetailComponent extends LightningElement {
 
     // };
 
+    renderedCallback() {
+        Promise.all([
+            loadStyle(this, bootstrap + '/bootstrap/css/bootstrap.css'),
+            // loadStyle(this, bootstrap + '/bootstrap/css/bootstrap.min.css'),
+            loadScript(this, bootstrap + '/bootstrap/js/bootstrap.js'),
+            loadScript(this, jquery)     
+        ])
+            .then(() => {
+                console.log('Bootstrap Loaded');
+            })
+            .catch(error => {
+                console.log('Bootstrap Not Loaded');
+            });
+    }
+
+    // @wire(Get_Site_URL) 
+    // wiredJobs ({ error, data }) {
+    //     if (data) {
+    //         console.log('data=>' , data);         
+    //         this.siteURL = data;
+    //         this.error = undefined;
+    //    } else if (error) { 
+    //        this.error = error; 
+    //        this.siteURL = undefined;
+    //   }   }
+
     async connectedCallback() {
         let params = {};
         params = await this.getQueryParameters();
@@ -28,6 +59,7 @@ export default class JobDetailComponent extends LightningElement {
         let recordId = obj.id;
         // this.JobData = (recordId ===null ||  recordId === '')? this.dumyData : '';
         console.log('Id=>' ,recordId);
+        await this.getSiteURL();
         await this.getJobData(recordId);
     }
     getQueryParameters() {
@@ -41,6 +73,20 @@ export default class JobDetailComponent extends LightningElement {
         return params;
     }
 
+    async getSiteURL()
+    {
+        await Get_Site_URL()
+        .then(result=>{
+            console.log('urlresult=>' ,  result);
+            this.siteURL = result;
+            this.error = undefined;
+        })
+        .catch(error => {
+            this.error = error;
+            this.siteURL = undefined;
+        });
+    }
+
     async getJobData(recordId)
     {
         console.log('getjobdatarecordId=>',recordId );
@@ -50,14 +96,14 @@ export default class JobDetailComponent extends LightningElement {
             });
             console.log('result' , result);
             this.JobData = result;
-            //this.JobData[Date_Posted__c] = format(this.JobData[Date_Posted__c],'%B %d,%Y');
             console.log('this.JobData' , this.JobData);
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            let site = this.siteURL;
             let jobData = {
                 ...this.JobData,
                 formattedPostedDate : new Date(result.Date_Posted__c).toLocaleDateString('en-US', options),
                 formattedTargetDate : new Date(result.Target_Hire_Date__c).toLocaleDateString('en-US', options),
-                applyURL : 'https://hawklogixpakistan3-dev-ed.develop.my.site.com/jobs/apply?id=' + result.Id
+                applyURL : site + 'apply?id=' + result.Id
             };
             this.JobData = jobData;
             console.log('jobdata' , jobData);

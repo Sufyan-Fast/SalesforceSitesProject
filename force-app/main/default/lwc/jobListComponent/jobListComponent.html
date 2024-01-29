@@ -1,7 +1,6 @@
 <template>
-
     <section class="gottalent">
-        <div class="container">
+        <div class="container gottalentcontainer">
             <div class="gottalentContent">
                 <div class="leftContent">
                     <h1>Got Talent ?<br> Meet Opportunity</h1>
@@ -24,7 +23,7 @@
     <!---Heri Section-->
     <!--Latest Job section-->
     <section class="LatestJob">
-        <div class="container">
+        <div class="container p-0">
             <div class="titleofjob">
                 <div class="headingjob">
                     <h2>Latest jobs</h2>
@@ -33,13 +32,13 @@
                 <button class = "alljobsbtn" onclick={getAllJobs}>View all jobs</button>
                 </div>
             </div>
-            <div class="Cardsjob">
+            <div class="Cardsjob row">
                 <template if:true={isLoaded}>
                     <lightning-spinner alternative-text="Loading" variant="brand" size="large">
                     </lightning-spinner>
                </template>
                 <template for:each={allJobs} for:item="job">
-                <div class="cardscontent" key={job.Id}>
+                <div class="cardscontent col-lg-4 col-md-6 col-sm-12" key={job.Id}>
                     <div class="cardsbody" >
                         <div class="cardscontenttop" >
                             <p><span>Date Posted:</span> {job.formattedPostedDate}</p>
@@ -47,13 +46,11 @@
                         </div>
                         <h3>{job.Name}</h3>
                         <br>
-                        <p class="hiringtime"><span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span></p>
-                        <button class="fulltime">Full Time</button>
-                        <button class="urgent">Urgent</button>
-                        <button class="house">In House</button>
-                        <div class="viewdetailbutton">
+                        <span class="companydetail">by <span class='namehawk'>HawkLogix Pakistan</span> in <span class="profession">Development & IT</span></span>
+                        <!-- <div class="viewdetailbutton"> -->
+                        <br>
                         <button class="viewDetail"><a target="_self" href={job.Url}>View Detail</a></button>
-                        </div>
+                        <!-- </div> -->
                         <!-- <p class="descriptionjob">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra sem nec ante ultrices vulputate. Nam congue et neque sit amet sagittis.</p> -->
                     </div>
                 </div>

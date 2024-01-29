@@ -112,6 +112,14 @@ public without sharing class LWCSItesController {
         }
         
     }
+    
+    @AuraEnabled(cacheable=true)
+    public static String getLWCSitesURL(){
+         LWC_Site_URL__c url= LWC_Site_URL__c.getInstance();
+        String lwcSiteUrl= url.LWC_URL__c;
+        return lwcSiteUrl;
+        
+    }
 
 
 }
